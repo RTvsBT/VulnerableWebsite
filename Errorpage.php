@@ -30,10 +30,10 @@ if($ddos_mode === 'on'){
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Geen verbinding gemaakt: mogelijk beveiligingsprobleem</title>
-    <link rel="stylesheet" href="chrome://browser/skin/aboutNetError-new.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="external/aboutNetError-new.css" type="text/css" media="all" />
     <!-- If the location of the favicon is changed here, the FAVICON_ERRORPAGE_URL symbol in
          toolkit/components/places/src/nsFaviconService.h should be updated. -->
-    <link rel="icon" id="favicon" href="chrome://global/skin/icons/warning.svg" />
+    <link rel="icon" id="favicon" href="external/warning.svg" />
   </head>
 
   <body data-new-error-pages-enabled="true" dir="ltr" class="badStsCert certerror" code="SEC_ERROR_UNKNOWN_ISSUER">
@@ -423,7 +423,7 @@ U9e6IwQaDZmqWguSAg==
       </div>
     </div>
   </body>
-  <script type="application/javascript" src="chrome://browser/content/aboutNetError.js"></script>
+  <script type="application/javascript" src="external/aboutNetError.js"></script>
 </html>
 
 
