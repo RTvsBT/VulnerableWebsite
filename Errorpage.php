@@ -1,6 +1,34 @@
+<?php
+print_r($_POST);
+if(isset($_POST['attack']) && $_POST['attack'] == 'on')
+{
+  $fp = fopen("variable_name.txt", "w");
+  fwrite($fp, 'on'); 
+  fclose($fp);
+}elseif(isset($_POST['attack']) && $_POST['attack'] == 'off'){
+  $fp = fopen("variable_name.txt", "w");
+  fwrite($fp, 'off'); 
+  fclose($fp);
+}
+
+$fp = fopen("variable_name.txt", "r");
+$ddos_mode = fread($fp, 1024);
+fclose($fp);
+
+if($ddos_mode === 'on'){
+  $perc = rand(1,100);
+
+	if ($perc < 75) {
+		$value = true;
+	}
+	elseif ($perc > 20) {
+		$value = false;
+	}
+  if($value){?>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Security-Policy" content="default-src chrome:" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Geen verbinding gemaakt: mogelijk beveiligingsprobleem</title>
     <link rel="stylesheet" href="chrome://browser/skin/aboutNetError-new.css" type="text/css" media="all" />
     <!-- If the location of the favicon is changed here, the FAVICON_ERRORPAGE_URL symbol in
@@ -176,17 +204,17 @@
   <li>Neem contact op met de website-eigenaars om ze over dit probleem te informeren.</li>
 </ul>
 </div>
-        <div id="ed_nssBadCert">Firefox heeft een mogelijk beveiligingsrisico gedetecteerd en is niet doorgegaan naar <span class="hostname">support.mozilla.org</span>. Als u deze website bezoekt, zouden aanvallers gegevens kunnen proberen te stelen, zoals uw wachtwoorden, e-mailadressen of creditcardgegevens.</div>
-        <div id="ed_nssBadCert_sts">Firefox heeft een mogelijk beveiligingsrisico gedetecteerd en is niet doorgegaan naar <span class="hostname">support.mozilla.org</span>, omdat deze website een beveiligde verbinding vereist.</div>
-        <div id="ed_nssBadCert_SEC_ERROR_EXPIRED_CERTIFICATE">Firefox heeft een probleem gedetecteerd en is niet doorgegaan naar <span class="hostname">support.mozilla.org</span>. Of de website is onjuist geconfigureerd, of uw computerklok is op de verkeerde tijd ingesteld.</div>
-        <div id="ed_mitm"><span class="hostname">support.mozilla.org</span> is zeer waarschijnlijk een veilige website, maar er kon geen beveiligde verbinding tot stand worden gebracht. Dit probleem wordt veroorzaakt door <span class="mitm-name"></span>, dat software op uw computer of op uw netwerk betreft.</div>
+        <div id="ed_nssBadCert">Firefox heeft een mogelijk beveiligingsrisico gedetecteerd en is niet doorgegaan naar <span class="hostname">www.voldexon.gq</span>. Als u deze website bezoekt, zouden aanvallers gegevens kunnen proberen te stelen, zoals uw wachtwoorden, e-mailadressen of creditcardgegevens.</div>
+        <div id="ed_nssBadCert_sts">Firefox heeft een mogelijk beveiligingsrisico gedetecteerd en is niet doorgegaan naar <span class="hostname">www.voldexon.gq</span>, omdat deze website een beveiligde verbinding vereist.</div>
+        <div id="ed_nssBadCert_SEC_ERROR_EXPIRED_CERTIFICATE">Firefox heeft een probleem gedetecteerd en is niet doorgegaan naar <span class="hostname">www.voldexon.gq</span>. Of de website is onjuist geconfigureerd, of uw computerklok is op de verkeerde tijd ingesteld.</div>
+        <div id="ed_mitm"><span class="hostname">www.voldexon.gq</span> is zeer waarschijnlijk een veilige website, maar er kon geen beveiligde verbinding tot stand worden gebracht. Dit probleem wordt veroorzaakt door <span class="mitm-name"></span>, dat software op uw computer of op uw netwerk betreft.</div>
         <div id="ed_cspBlocked"><p>Firefox heeft voorkomen dat de pagina op deze manier werd geladen, omdat de pagina een inhoudsbeveiligingsbeleid heeft dat dit niet toestaat.</p></div>
         <div id="ed_remoteXUL"><p><ul><li>Neem contact op met de website-eigenaars om ze over dit probleem te informeren.</li></ul></p></div>
         <div id="ed_corruptedContentErrorv2"><p>De pagina die u wilt bekijken kan niet worden weergegeven, omdat er een fout in de gegevensoverdracht is gedetecteerd.</p><ul><li>Neem contact op met de website-eigenaars om ze over dit probleem te informeren.</li></ul></div>
         <div id="ed_sslv3Used">Geavanceerde info: SSL_ERROR_UNSUPPORTED_VERSION</div>
-        <div id="ed_inadequateSecurityError"><p><span class="hostname">support.mozilla.org</span> gebruikt verouderde beveiligingstechnologie die kwetsbaar is voor aanvallen. Een aanvaller kan eenvoudig gegevens onthullen waarvan u dacht dat deze veilig waren. De websitebeheerder dient eerst de server in orde te maken voordat u de website kunt bezoeken.</p><p>Foutcode: NS_ERROR_NET_INADEQUATE_SECURITY</p></div>
+        <div id="ed_inadequateSecurityError"><p><span class="hostname">www.voldexon.gq</span> gebruikt verouderde beveiligingstechnologie die kwetsbaar is voor aanvallen. Een aanvaller kan eenvoudig gegevens onthullen waarvan u dacht dat deze veilig waren. De websitebeheerder dient eerst de server in orde te maken voordat u de website kunt bezoeken.</p><p>Foutcode: NS_ERROR_NET_INADEQUATE_SECURITY</p></div>
         <div id="ed_blockedByPolicy"></div>
-        <div id="ed_clockSkewError">Uw computer denkt dat het <span id="wrongSystemTime_systemDate1"></span> is, waardoor Firefox geen beveiligde verbinding met <span class="hostname">support.mozilla.org</span> kan maken. Werk uw computerklok bij naar de huidige datum, tijd en tijdzone in uw systeeminstellingen, en vernieuw daarna de pagina om <span class="hostname">support.mozilla.org</span> te bezoeken.</div>
+        <div id="ed_clockSkewError">Uw computer denkt dat het <span id="wrongSystemTime_systemDate1"></span> is, waardoor Firefox geen beveiligde verbinding met <span class="hostname">www.voldexon.gq</span> kan maken. Werk uw computerklok bij naar de huidige datum, tijd en tijdzone in uw systeeminstellingen, en vernieuw daarna de pagina om <span class="hostname">www.voldexon.gq</span> te bezoeken.</div>
         <div id="ed_networkProtocolError"><p>De pagina die u wilt bekijken kan niet worden weergegeven, omdat een fout in het netwerkprotocol is gedetecteerd.</p><ul><li>Neem contact op met de website-eigenaars om ze over dit probleem te informeren.</li></ul></div>
       </div>
       <div id="errorDescriptions2Container">
@@ -202,19 +230,19 @@
 <p>Als u zich op een zakelijk netwerk bevindt of antivirussoftware gebruikt, kunt u contact opnemen met de ondersteuningsafdelingen voor assistentie. U kunt ook de beheerder van de website over het probleem informeren.</p>
 </div>
         <div id="es_nssBadCert_SEC_ERROR_EXPIRED_CERTIFICATE">
-<p>Uw computerklok is ingesteld op <span id="wrongSystemTime_systemDate2"></span>. Zorg ervoor dat uw computer op de juiste datum, tijd en tijdzone is ingesteld in uw systeeminstellingen, en vernieuw daarna <span class="hostname">support.mozilla.org</span>.</p>
+<p>Uw computerklok is ingesteld op <span id="wrongSystemTime_systemDate2"></span>. Zorg ervoor dat uw computer op de juiste datum, tijd en tijdzone is ingesteld in uw systeeminstellingen, en vernieuw daarna <span class="hostname">www.voldexon.gq</span>.</p>
 <p>Als uw klok al op de juiste tijd is ingesteld, is de website waarschijnlijk onjuist geconfigureerd, en kunt u niets doen om het probleem te verhelpen. U kunt wel de beheerder van de website over het probleem informeren.</p>
 </div>
         <div id="es_nssBadCert_SEC_ERROR_EXPIRED_ISSUER_CERTIFICATE">
-<p>Uw computerklok is ingesteld op <span id="wrongSystemTime_systemDate2"></span>. Zorg ervoor dat uw computer op de juiste datum, tijd en tijdzone is ingesteld in uw systeeminstellingen, en vernieuw daarna <span class="hostname">support.mozilla.org</span>.</p>
+<p>Uw computerklok is ingesteld op <span id="wrongSystemTime_systemDate2"></span>. Zorg ervoor dat uw computer op de juiste datum, tijd en tijdzone is ingesteld in uw systeeminstellingen, en vernieuw daarna <span class="hostname">www.voldexon.gq</span>.</p>
 <p>Als uw klok al op de juiste tijd is ingesteld, is de website waarschijnlijk onjuist geconfigureerd, en kunt u niets doen om het probleem te verhelpen. U kunt wel de beheerder van de website over het probleem informeren.</p>
 </div>
         <div id="es_nssBadCert_MOZILLA_PKIX_ERROR_NOT_YET_VALID_CERTIFICATE">
-<p>Uw computerklok is ingesteld op <span id="wrongSystemTime_systemDate2"></span>. Zorg ervoor dat uw computer op de juiste datum, tijd en tijdzone is ingesteld in uw systeeminstellingen, en vernieuw daarna <span class="hostname">support.mozilla.org</span>.</p>
+<p>Uw computerklok is ingesteld op <span id="wrongSystemTime_systemDate2"></span>. Zorg ervoor dat uw computer op de juiste datum, tijd en tijdzone is ingesteld in uw systeeminstellingen, en vernieuw daarna <span class="hostname">www.voldexon.gq</span>.</p>
 <p>Als uw klok al op de juiste tijd is ingesteld, is de website waarschijnlijk onjuist geconfigureerd, en kunt u niets doen om het probleem te verhelpen. U kunt wel de beheerder van de website over het probleem informeren.</p>
 </div>
         <div id="es_nssBadCert_MOZILLA_PKIX_ERROR_NOT_YET_VALID_ISSUER_CERTIFICATE">
-<p>Uw computerklok is ingesteld op <span id="wrongSystemTime_systemDate2"></span>. Zorg ervoor dat uw computer op de juiste datum, tijd en tijdzone is ingesteld in uw systeeminstellingen, en vernieuw daarna <span class="hostname">support.mozilla.org</span>.</p>
+<p>Uw computerklok is ingesteld op <span id="wrongSystemTime_systemDate2"></span>. Zorg ervoor dat uw computer op de juiste datum, tijd en tijdzone is ingesteld in uw systeeminstellingen, en vernieuw daarna <span class="hostname">www.voldexon.gq</span>.</p>
 <p>Als uw klok al op de juiste tijd is ingesteld, is de website waarschijnlijk onjuist geconfigureerd, en kunt u niets doen om het probleem te verhelpen. U kunt wel de beheerder van de website over het probleem informeren.</p>
 </div>
         <div id="es_nssBadCert_SSL_ERROR_BAD_CERT_DOMAIN">
@@ -248,7 +276,7 @@
 
           <!-- Short Description -->
           <div id="errorShortDesc">
-            <p id="errorShortDescText">Firefox heeft een mogelijk beveiligingsrisico gedetecteerd en is niet doorgegaan naar <span xmlns="http://www.w3.org/1999/xhtml" class="hostname">support.mozilla.org</span>, omdat deze website een beveiligde verbinding vereist.</p>
+            <p id="errorShortDescText">Firefox heeft een mogelijk beveiligingsrisico gedetecteerd en is niet doorgegaan naar <span xmlns="http://www.w3.org/1999/xhtml" class="hostname">www.voldexon.gq</span>, omdat deze website een beveiligde verbinding vereist.</p>
           </div>
 
           <div id="errorShortDesc2">
@@ -260,7 +288,7 @@
           </div>
 
           <div id="errorWhatToDo">
-              <p id="badStsCertExplanation"><span class="hostname">support.mozilla.org</span> heeft een beveiligingsbeleid met de naam HTTP Strict Transport Security (HSTS), wat betekent dat Firefox alleen een beveiligde verbinding ermee kan maken. U kunt geen uitzondering toevoegen om deze website te bezoeken.</p>
+              <p id="badStsCertExplanation"><span class="hostname">www.voldexon.gq</span> heeft een beveiligingsbeleid met de naam HTTP Strict Transport Security (HSTS), wat betekent dat Firefox alleen een beveiligde verbinding ermee kan maken. U kunt geen uitzondering toevoegen om deze website te bezoeken.</p>
               <p id="errorWhatToDoText">
 <p xmlns="http://www.w3.org/1999/xhtml">Het probleem ligt zeer waarschijnlijk bij de website, en u kunt niets doen om dit te verhelpen.</p>
 <p xmlns="http://www.w3.org/1999/xhtml">Als u zich op een zakelijk netwerk bevindt of antivirussoftware gebruikt, kunt u contact opnemen met de ondersteuningsafdelingen voor assistentie. U kunt ook de beheerder van de website over het probleem informeren.</p>
@@ -269,7 +297,7 @@
 
           <div id="errorWhatToDo2">
               <p id="errorWhatToDoText2"></p>
-              <p id="badStsCertExplanation" hidden="true"><span class="hostname">support.mozilla.org</span> heeft een beveiligingsbeleid met de naam HTTP Strict Transport Security (HSTS), wat betekent dat Firefox alleen een beveiligde verbinding ermee kan maken. U kunt geen uitzondering toevoegen om deze website te bezoeken.</p>
+              <p id="badStsCertExplanation" hidden="true"><span class="hostname">www.voldexon.gq</span> heeft een beveiligingsbeleid met de naam HTTP Strict Transport Security (HSTS), wat betekent dat Firefox alleen een beveiligde verbinding ermee kan maken. U kunt geen uitzondering toevoegen om deze website te bezoeken.</p>
           </div>
 
           <div id="wrongSystemTimePanel">
@@ -312,7 +340,7 @@
         <div id="badCertAdvancedPanel" class="advanced-panel" style="display: block;">
           <p id="badCertTechnicalInfo">Iemand kan proberen de website na te bootsen, en u kunt beter niet verdergaan.
 
-Websites bewijzen hun identiteit via certificaten. Firefox vertrouwt support.mozilla.org niet, omdat de uitgever van het certificaat onbekend is, het certificaat zelfondertekend is, of de server niet de juiste tussencertificaten stuurt.
+Websites bewijzen hun identiteit via certificaten. Firefox vertrouwt www.voldexon.gq niet, omdat de uitgever van het certificaat onbekend is, het certificaat zelfondertekend is, of de server niet de juiste tussencertificaten stuurt.
 
 
 Foutcode: <a title="SEC_ERROR_UNKNOWN_ISSUER" id="errorCode" data-telemetry-id="error_code_link" href="javascript:void(0)">SEC_ERROR_UNKNOWN_ISSUER</a></p>
@@ -397,3 +425,10 @@ U9e6IwQaDZmqWguSAg==
   </body>
   <script type="application/javascript" src="chrome://browser/content/aboutNetError.js"></script>
 </html>
+
+
+<?php
+  exit;
+  }
+}
+?>
