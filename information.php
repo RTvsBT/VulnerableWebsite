@@ -1,66 +1,9 @@
 <?php
 require_once 'common.php';
-require_once 'dbfuncs.php';
+// require_once 'dbfuncs.php';
+include('dbfuncs.php');
 
-
-if($_SERVER['REQUEST_METHOD'] == "POST") {
-		var_dump($_REQUEST);
-    if(!empty($_REQUEST['username']) && !empty($_REQUEST['password'])) {
-
-			$apc_key = "{$_SERVER['SERVER_NAME']}~login:{$_SERVER['REMOTE_ADDR']}";
-			$tries = (int)apcu_fetch($apc_key);
-			var_dump($tries);
-			if ($tries >= 4) {
-				// log to syslog stuffs
-				openlog("myScriptLog", LOG_PID | LOG_PERROR, LOG_AUTH);
-				// some code
-				$access = date("Y/m/d H:i:s");
-				syslog(LOG_WARNING, "Login brute force attempt by: $access {$_SERVER['REMOTE_ADDR']} ({$_SERVER['HTTP_USER_AGENT']})");
-			
-				closelog();
-			}
-
-
-			$authSQL = "select * from users where username = '" . $_REQUEST['username'] . "' and password = '" . $_REQUEST['password'] . "'"; 
-			
-			$SQL_Injection_blacklist = array("drop","/*", "*/","--","union", "if", "concat", "order by", "exec", "cmd", "xp_", "Insert");
-			if(contains($authSQL, $SQL_Injection_blacklist)){
-
-				openlog("myScriptLog", LOG_PID | LOG_PERROR, LOG_AUTH);
-				// some code
-				$access = date("Y/m/d H:i:s");
-				syslog(LOG_WARNING, "SQL Injection attempt: $access {$_SERVER['REMOTE_ADDR']} ($authSQL)");
-			
-				closelog();
-
-			}
-
-
-			$authed = getSelect($authSQL);
-				
-			if(!$authed) {
-					$storage_time = 600;
-					apcu_inc($apc_key, $tries+1, $storage_time);
-
-
-					echo 'Invalid login.<br>';
-					die;
-			} else {
-					apc_delete($apc_key);
-
-
-					echo 'Success, you authed! <br>';
-					echo 'SQL Used: ' . $authSQL;
-					$_SESSION['authed'] = true;
-					$_SESSION['userid'] = $authed[0][0];
-					$_SESSION['username'] = $authed[0][1];
-					header("Refresh:0; url=/index.php?id=1");
-			}
-    }
-}
 ?>
-
-
 
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -75,6 +18,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	<meta content="text/html;charset=UTF-8" http-equiv="Content-Type" />
 	<meta content="width=device-width" name="viewport" />
 	<meta name="_csrf_parameter" content="_csrf" />
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+
 	<meta name="_csrf_header" content="X-CSRF-TOKEN" />
 	<meta name="_csrf" content="470aa937-adb2-4599-850a-633b9914421e" />
 	<link href="/assets/images/apple-touch-icon-57x57.png" sizes="57x57" rel="apple-touch-icon" />
@@ -128,13 +73,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 				</div>
 				<div tabindex="-1" role="navigation" class="page__navigation" id="nav-main">
 					<ul class="nav js-nav-focus">
-						<li class="nav__item"><a href="#" class="nav__link">Mijn werken bij
-								Defensie</a></li>
+						<li class="nav__item"><a href="#" class="nav__link">Persoonsgegevens soldaten.</a></li>
 					</ul>
 					<ul tabindex="-1" class="nav--meta" id="nav-meta">
-						<li class="nav--meta__item"><a href="#">Contact</a></li>
-						<li class="nav--meta__item"><a href="#">Inloggen</a></li>
-						<li class="nav--meta__item"><a href="#">Veva.nl</a></li>
+						<li class="nav--meta__item"><a href="#">Secret button</a></li>
+						<li class="nav--meta__item"><a href="#">Staatsgeheimen</a></li>
+						<li class="nav--meta__item"><a href="#">Bewijs dat er aliens zijn op Area 51.</a></li>
 					</ul>
 					<div class="nav-overlay"></div>
 				</div>
@@ -148,62 +92,133 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 						<div style="display:none;border:2px solid red" id="js_error_list"><span></span></div>
 						<div role="main" class="group l-wrapper-content" id="main-content">
 							<div class="section--sec">
+								
 								<div class="section__inset--large">
-									<h1 class="section__title"><span class="hide-mobile">mijn.defensie.nl</span><span
-											class="hide-desktop">mijn defensie</span></h1>
-									<p class="section__lede">
-										Meld je hier aan om bij je defensie profiel te komen.
-									</p>
-									<div class="module-login">
-										<div class="grid grid--gutter">
-											<div class="grid-50 float-right">
-												<div class="section--pri js-eq-height">
-													<div class="section__inset--medium">
-														<h3 class="section__legend">
-															Ik wil inloggen
-														</h3>
-														<form action="" method="post" class="form"><input
-																type="hidden" name="_csrf" value="470aa937-adb2-4599-850a-633b9914421e" />
-															<div class="form__row">
-																<div class="form__field"><label for="email" class="form__label form__label--small">
-																		E-mailadres
-																	</label><input value="" maxlength="80" name="username" class="form__input "
-																		autofocus="autofocus" autocomplete="off" autocapitalize="off" id="email"
-																		type="email" /></div>
-															</div>
-															<div class="form__row">
-																<div class="form__field"><label for="password" class="form__label form__label--small">
-																		Wachtwoord
-																	</label><input maxlength="256" name="password" class="form__input "
-																		autocomplete="off" id="password" type="password" /></div>
-															</div>
-															<p><a href="#">
-																	Wachtwoord vergeten?
-																</a></p>
-															<div class="form__row">
-																<div class="form__field"><input class="button--pri" value="Inloggen" id="submit"
-																		type="submit" /></div>
-															</div>
-														</form>
-													</div>
-												</div>
-											</div>
-											<div class="grid-50">
-												<div class="section--pri js-eq-height">
-													<div class="section__inset--medium">
-														<h3 class="section__legend">
-															Defensie account
-														</h3>
-														<p>
-															Met een Defensie account heb je direct toegang tot alle onderdelen op defensie.nl
-															waarvoor jouw gegevens vereist zijn. Zo voorkom je dat je steeds opnieuw al je gegevens
-															moet invullen.
-														</p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+								<p> Deze tabel bevat zeer gevoelige persoonsgegevens, zorg daarom dat deze nooit de server verlaat.</p>
+								<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th style='width:50px;'>ID</th>
+<th style='width:150px;'>Name</th>
+<th style='width:50px;'>Age</th>
+<th style='width:150px;'>Department</th>
+</tr>
+</thead>
+<tbody>
+<?php
+
+if (isset($_GET['page_no']) && $_GET['page_no']!="") {
+	$page_no = $_GET['page_no'];
+	} else {
+		$page_no = 1;
+        }
+
+	$total_records_per_page = 6;
+    $offset = ($page_no-1) * $total_records_per_page;
+	$previous_page = $page_no - 1;
+	$next_page = $page_no + 1;
+	$adjacents = "2"; 
+
+	$total_records = getSelect("SELECT COUNT(*) As total_records FROM `pagination_table`");
+	// var_dump($total_records[0][0]);
+	$total_records = $total_records[0][0];
+ 	$total_no_of_pages = ceil($total_records / $total_records_per_page);
+	$second_last = $total_no_of_pages - 1; // total page minus 1
+
+		$result = getSelect("SELECT * FROM `pagination_table` LIMIT $offset, $total_records_per_page");
+    foreach($result as &$row){
+
+		echo "<tr>
+			  <td>".$row[0]."</td>
+			  <td>".$row[1]."</td>
+	 		  <td>".$row[2]."</td>
+		   	  <td>".$row[3]."</td>
+		   	  </tr>";
+        }
+    ?>
+</tbody>
+</table>
+
+<div style='padding: 10px 20px 0px; border-top: dotted 1px #CCC;'>
+<strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
+</div>
+
+<ul class="pagination">
+	<?php // if($page_no > 1){ echo "<li><a href='?page_no=1'>First Page</a></li>"; } ?>
+    
+	<li <?php if($page_no <= 1){ echo "class='disabled'"; } ?>>
+	<a <?php if($page_no > 1){ echo "href='?page_no=$previous_page'"; } ?>>Previous</a>
+	</li>
+       
+    <?php 
+	if ($total_no_of_pages <= 10){  	 
+		for ($counter = 1; $counter <= $total_no_of_pages; $counter++){
+			if ($counter == $page_no) {
+		   echo "<li class='active'><a>$counter</a></li>";	
+				}else{
+           echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+				}
+        }
+	}
+	elseif($total_no_of_pages > 10){
+		
+	if($page_no <= 4) {			
+	 for ($counter = 1; $counter < 8; $counter++){		 
+			if ($counter == $page_no) {
+		   echo "<li class='active'><a>$counter</a></li>";	
+				}else{
+           echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+				}
+        }
+		echo "<li><a>...</a></li>";
+		echo "<li><a href='?page_no=$second_last'>$second_last</a></li>";
+		echo "<li><a href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";
+		}
+
+	 elseif($page_no > 4 && $page_no < $total_no_of_pages - 4) {		 
+		echo "<li><a href='?page_no=1'>1</a></li>";
+		echo "<li><a href='?page_no=2'>2</a></li>";
+        echo "<li><a>...</a></li>";
+        for ($counter = $page_no - $adjacents; $counter <= $page_no + $adjacents; $counter++) {			
+           if ($counter == $page_no) {
+		   echo "<li class='active'><a>$counter</a></li>";	
+				}else{
+           echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+				}                  
+       }
+       echo "<li><a>...</a></li>";
+	   echo "<li><a href='?page_no=$second_last'>$second_last</a></li>";
+	   echo "<li><a href='?page_no=$total_no_of_pages'>$total_no_of_pages</a></li>";      
+            }
+		
+		else {
+        echo "<li><a href='?page_no=1'>1</a></li>";
+		echo "<li><a href='?page_no=2'>2</a></li>";
+        echo "<li><a>...</a></li>";
+
+        for ($counter = $total_no_of_pages - 6; $counter <= $total_no_of_pages; $counter++) {
+          if ($counter == $page_no) {
+		   echo "<li class='active'><a>$counter</a></li>";	
+				}else{
+           echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+				}                   
+                }
+            }
+	}
+?>
+    
+	<li <?php if($page_no >= $total_no_of_pages){ echo "class='disabled'"; } ?>>
+	<a <?php if($page_no < $total_no_of_pages) { echo "href='?page_no=$next_page'"; } ?>>Next</a>
+	</li>
+    <?php if($page_no < $total_no_of_pages){
+		echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+		} ?>
+</ul>
+
+
+<br /><br />
+
+
 								</div>
 							</div>
 						</div>

@@ -1,6 +1,6 @@
 <?php
 
-define("DB_HOST", "localhost");
-define("DB_USER", "student");
-define("DB_PASS", "student");
-define("DB_DB","Cyber");
+define("DB_HOST", "127.0.0.1");
+define("DB_USER", " root");
+define("DB_PASS", "root");
+define("DB_DB","cyber");

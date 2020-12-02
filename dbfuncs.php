@@ -6,10 +6,10 @@ $con = null;
 function connect()
 {
     global $con;
-    $con = mysql_connect(DB_HOST, DB_USER, DB_PASS);
-
+    // $con = mysqli_connect(DB_HOST, DB_USER, DB_PASS);
+    $con = mysqli_connect("localhost", "root", "", "cyber");
     if(!$con){
-        die("Unable to connect to: " . DB_USER . ":" . DB_PASS . "@" . DB_HOST . ". Error: " . mysql_error());
+        die("Unable to connect to: " . DB_USER . ":" . DB_PASS . "@" . DB_HOST . ". Error: " . mysqli_connect_error());
     }
     selectDb();
 }
@@ -18,7 +18,7 @@ function selectDb()
 {
     global $con;
     if($con !== null)
-        mysql_select_db(DB_DB, $con);
+        mysqli_select_db( $con, DB_DB,);
 }
 
 function getSelect($query)
@@ -27,15 +27,14 @@ function getSelect($query)
     if($con === null){
         connect();
     }
-     if(is_resource($con)){
-        $result = mysql_query($query,$con);
-        if($result !== null && is_resource($result)) {
-            $rows = array();
-            while($row = mysql_fetch_row($result)) {
-                $rows[] = $row;
-            }
-            return $rows;
+    $result = mysqli_query($con,$query);
+
+    if($result !== null) {
+        $rows = array();
+        while($row = mysqli_fetch_row($result)) {
+            $rows[] = $row;
         }
+        return $rows;
     }
 }
 
@@ -46,11 +45,11 @@ function insertQuery($query, $update = false)
         connect();
 
     if(is_resource($con)) {
-        $result = mysql_query($query, $con);
+        $result = mysqli_query($con, $query);
         if($result !== true) {
             return false;
         }
 
-        return ($update === false) ? true : mysql_insert_id();
+        return ($update === false) ? true : mysqli_insert_id();
     }
 }
