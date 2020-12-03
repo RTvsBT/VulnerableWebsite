@@ -15,6 +15,12 @@ The website has the following features:
 - Display the "holy grail"(A table with army PII).
 - Fake a DDOS attack.
 
+# Requirements
+This website requires an MySQL server to be available with the following credentials:
+- DB: Cyber
+- Username: student
+- Password: student
+
 # Issues
 The DDOS page is based on firefox and is known to not format properly on Chrome.
 
