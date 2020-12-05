@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS Cyber;
 USE Cyber;
 
 CREATE USER IF NOT EXISTS 'student'@'localhost' IDENTIFIED BY '[3Hq-<>)ke^WfL<Wh92.mTSzV4%K2abX';
-GRANT ALL PRIVILEGES ON Cyber.* TO 'student'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'student'@'localhost';
 
 FLUSH PRIVILEGES;
 
