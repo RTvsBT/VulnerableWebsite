@@ -1,6 +1,6 @@
 <?php
 
-$config_file = __DIR__ ."\\variable_name.txt";
+$config_file = __DIR__ . DIRECTORY_SEPARATOR ."DDOS_IS_HAPPENING";
 // print_r($_POST);
 if(isset($_POST['attack']) && $_POST['attack'] == 'on')
 {

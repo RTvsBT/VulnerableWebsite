@@ -99,9 +99,10 @@ include('dbfuncs.php');
 <thead>
 <tr>
 <th style='width:50px;'>ID</th>
-<th style='width:150px;'>Name</th>
-<th style='width:50px;'>Age</th>
-<th style='width:150px;'>Department</th>
+<th style='width:150px;'>Naam</th>
+<th style='width:50px;'>Telefoon nr</th>
+<th style='width:150px;'>BSN</th>
+<th style='width:150px;'>Credit card nr</th>
 </tr>
 </thead>
 <tbody>
@@ -133,6 +134,7 @@ if (isset($_GET['page_no']) && $_GET['page_no']!="") {
 			  <td>".$row[1]."</td>
 	 		  <td>".$row[2]."</td>
 		   	  <td>".$row[3]."</td>
+		   	  <td>".$row[4]."</td>
 		   	  </tr>";
         }
     ?>

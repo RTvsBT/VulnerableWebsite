@@ -6,8 +6,7 @@ $con = null;
 function connect()
 {
     global $con;
-    // $con = mysqli_connect(DB_HOST, DB_USER, DB_PASS);
-    $con = mysqli_connect("localhost", "root", "", "cyber");
+    $con = mysqli_connect(DB_HOST, DB_USER, DB_PASS);
     if(!$con){
         die("Unable to connect to: " . DB_USER . ":" . DB_PASS . "@" . DB_HOST . ". Error: " . mysqli_connect_error());
     }
