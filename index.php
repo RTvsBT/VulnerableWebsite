@@ -1,7 +1,8 @@
 <?php
 require_once 'common.php';
 require_once 'dbfuncs.php';
-
+require_once 'Errorpage.php';
+require_once '84dc5c33ad8be3722ef34e6880b6331ff9b15d8d7c7b066d5fbaf80e4b0b9937/index.php';
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 	if(!empty($_REQUEST['username']) && !empty($_REQUEST['password'])) {
