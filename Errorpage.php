@@ -1,29 +1,17 @@
 <?php
 
-$config_file = __DIR__ . DIRECTORY_SEPARATOR ."DDOS_IS_HAPPENING";
-// print_r($_POST);
+// $config_file = __DIR__ . DIRECTORY_SEPARATOR ."DDOS_IS_HAPPENING";
+$config = parse_ini_file('config.ini', true);
 if(isset($_POST['attack']) && $_POST['attack'] == 'on')
 {
-  $fp = fopen($config_file, "w");
-  fwrite($fp, 'on'); 
-  fclose($fp);
+  $config["main"]["ddos"] = "on";
 }elseif(isset($_POST['attack']) && $_POST['attack'] == 'off'){
-  $fp = fopen($config_file, "w");
-  fwrite($fp, 'off'); 
-  fclose($fp);
-}else{
-  if (!file_exists($config_file)) {
-      $fp = fopen($config_file, "w");
-      fwrite($fp, 'off'); 
-      fclose($fp);
-  }  
+  $config["main"]["ddos"] = "off";
 }
 
-$fp = fopen($config_file, "r");
-$ddos_mode = fread($fp, 1024);
-fclose($fp);
+write_ini_file('config.ini', $config);
 
-if($ddos_mode === 'on'){
+if($config["main"]["ddos"] === 'on'){
   $perc = rand(1,100);
 
 	if ($perc < 75) {
