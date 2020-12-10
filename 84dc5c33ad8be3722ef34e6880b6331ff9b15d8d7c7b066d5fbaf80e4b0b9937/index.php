@@ -1,7 +1,8 @@
 <?php
 
-$key = "darmkanaaladmiraal";
-$minutes_left = 30;
+$config = parse_ini_file('../config.ini', true);
+
+$minutes_left = $config["main"]["encryption_duration_minutes"];
 $seconds_left = 00;
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 	if(!empty($_REQUEST['key']) && !empty($_REQUEST['timer_value'])) {
@@ -12,9 +13,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		{
 			$notif = "Too late, your files are gone."; 
 		}
-		else if($_REQUEST['key'] === $key)
+		else if($_REQUEST['key'] === $config["main"]["encryption_key"])
 		{
-			$notif = "You successfully thwarted this ransomware attack."; 
+			$notif = "You successfully thwarted this ransomware attack.";
+			$config["main"]["ransomware"] = "off";
+			write_ini_file('../config.ini', $config);
 		}
 		else
 		{
@@ -23,7 +26,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	}
 }
 
-?>
+
+if($config["main"]["ransomware"] == "on"){ ?>
 
 <!doctype html>
 <!--[if lt IE 7 ]> <html class="ie ie6 ie-lt10 ie-lt9 ie-lt8 ie-lt7 no-js" lang="en"> <![endif]-->
@@ -129,11 +133,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 </html>
 
 <?php 
+	if (isset($notif)){
+		echo '<script>alert("'.$notif.'  -> '.$minutes_left.':'.$seconds_left.'")</script>'; 
+	}
 
-if (isset($notif)){
-	echo '<script>alert("'.$notif.'  -> '.$minutes_left.':'.$seconds_left.'")</script>'; 
+	exit;
+ }
 
-
-}
 
 ?>
