@@ -4,58 +4,49 @@ require_once 'dbfuncs.php';
 
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
-		var_dump($_REQUEST);
-    if(!empty($_REQUEST['username']) && !empty($_REQUEST['password'])) {
+	if(!empty($_REQUEST['username']) && !empty($_REQUEST['password'])) {
+		$apc_key = "{$_SERVER['SERVER_NAME']}~login:{$_SERVER['REMOTE_ADDR']}";
+		$tries = (int)apcu_fetch($apc_key);
+		var_dump($tries);
+		if ($tries >= 4) {
+			// log to syslog stuffs
+			openlog("myScriptLog", LOG_PID | LOG_PERROR, LOG_AUTH);
+			// some code
+			$access = date("Y/m/d H:i:s");
+			syslog(LOG_WARNING, "Login brute force attempt by: $access {$_SERVER['REMOTE_ADDR']} ({$_SERVER['HTTP_USER_AGENT']})");
 
-			$apc_key = "{$_SERVER['SERVER_NAME']}~login:{$_SERVER['REMOTE_ADDR']}";
-			$tries = (int)apcu_fetch($apc_key);
-			var_dump($tries);
-			if ($tries >= 4) {
-				// log to syslog stuffs
-				openlog("myScriptLog", LOG_PID | LOG_PERROR, LOG_AUTH);
-				// some code
-				$access = date("Y/m/d H:i:s");
-				syslog(LOG_WARNING, "Login brute force attempt by: $access {$_SERVER['REMOTE_ADDR']} ({$_SERVER['HTTP_USER_AGENT']})");
-			
-				closelog();
-			}
+			closelog();
+		}
 
 
-			$authSQL = "select * from users where username = '" . $_REQUEST['username'] . "' and password = '" . $_REQUEST['password'] . "'"; 
-			
-			$SQL_Injection_blacklist = array("drop","/*", "*/","--","union", "if", "concat", "order by", "exec", "cmd", "xp_", "Insert");
-			if(contains($authSQL, $SQL_Injection_blacklist)){
+		$authSQL = "select * from users where username = '" . $_REQUEST['username'] . "' and password = '" . $_REQUEST['password'] . "'"; 
 
-				openlog("myScriptLog", LOG_PID | LOG_PERROR, LOG_AUTH);
-				// some code
-				$access = date("Y/m/d H:i:s");
-				syslog(LOG_WARNING, "SQL Injection attempt: $access {$_SERVER['REMOTE_ADDR']} ($authSQL)");
-			
-				closelog();
+		$SQL_Injection_blacklist = array("drop","/*", "*/","--","union", "if", "concat", "order by", "exec", "cmd", "xp_", "Insert");
+		if(contains($authSQL, $SQL_Injection_blacklist)){
 
-			}
+			openlog("myScriptLog", LOG_PID | LOG_PERROR, LOG_AUTH);
+			// some code
+			$access = date("Y/m/d H:i:s");
+			syslog(LOG_WARNING, "SQL Injection attempt: $access {$_SERVER['REMOTE_ADDR']} ($authSQL)");
 
+			closelog();
 
-			$authed = getSelect($authSQL);
-				
-			if(!$authed) {
-					$storage_time = 600;
-					apcu_inc($apc_key, $tries+1, $storage_time);
+		}
 
 
-					echo 'Invalid login.<br>';
-					die;
-			} else {
-					apc_delete($apc_key);
+		$authed = getSelect($authSQL);
+
+		if(!$authed) {
+			$storage_time = 600;
+			apcu_inc($apc_key, $tries+1, $storage_time);
 
 
-					echo 'Success, you authed! <br>';
-					echo 'SQL Used: ' . $authSQL;
-					$_SESSION['authed'] = true;
-					$_SESSION['userid'] = $authed[0][0];
-					$_SESSION['username'] = $authed[0][1];
-					header("Refresh:0; url=/index.php?id=1");
-			}
+			echo 'Invalid login.<br>';
+			die;
+		} else {
+			apc_delete($apc_key);
+			header("Refresh:0; url=/information.php");
+		}
     }
 }
 ?>
