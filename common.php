@@ -3,7 +3,6 @@
 //ini_set('display_startup_errors',1);
 error_reporting(E_ALL);
 session_start();
-require_once 'Errorpage.php';
 
 
 
@@ -17,7 +16,6 @@ function contains($str, array $arr)
 
 
 
-<?php
 if (!function_exists('write_ini_file')) {
     /**
      * Write an ini configuration file
@@ -94,6 +92,9 @@ if (!function_exists('write_ini_file')) {
         return true;
     }
 }
+
+require_once 'Errorpage.php';
+
 ?>
 
 
