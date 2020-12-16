@@ -1,6 +1,6 @@
 <?php
 
-$config = parse_ini_file('../config.ini', true);
+$config = parse_ini_file(__DIR__ . '/../config.ini', true);
 
 $minutes_left = $config["main"]["encryption_duration_minutes"];
 $seconds_left = 00;
