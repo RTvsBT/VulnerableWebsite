@@ -7,16 +7,16 @@ if(isset($_POST['api']) && $_POST['api'] == $config['main']['api'])
 {
      if(isset($_POST['ddos'])){
       if ($config['main]['ddos'] == "off"){
-        $config['main]['ddos'] = "on";
+        $config['main']['ddos'] = "on";
       }else{
-        $config['main]['ddos'] = "off";
+        $config['main']['ddos'] = "off";
       }
      }
      if(isset($_POST['ransomware'])){
-      if ($config['main]['ransomware'] == "off"){
-        $config['main]['ransomware'] = "on";
+      if ($config['main']['ransomware'] == "off"){
+        $config['main']['ransomware'] = "on";
       }else{
-        $config['main]['ransomware'] = "off";
+        $config['main']['ransomware'] = "off";
       }
      }
 }
