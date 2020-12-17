@@ -6,7 +6,7 @@ $config = parse_ini_file('config.ini', true);
 if(isset($_POST['API']) && $_POST['API'] == $config['main']['api'])
 {
      if(isset($_POST['ddos'])){
-      if ($config['main]['ddos'] == "off"){
+      if ($config['main']['ddos'] == "off"){
         $config['main']['ddos'] = "on";
       }else{
         $config['main']['ddos'] = "off";
