@@ -92,9 +92,6 @@ if (!function_exists('write_ini_file')) {
         return true;
     }
 }
-
-require_once 'Errorpage.php';
-
 ?>
 
 
